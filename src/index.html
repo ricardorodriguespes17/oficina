@@ -10,7 +10,42 @@
 </head>
 
 <body>
-  <h1>Todo List</h1>
+  <header>
+    <h2 class="header-title">TO DO LIST</h2>
+    <button class="header-button">Excluídas</button>
+    <button class="header-button">Concluídas</button>
+  </header>
+
+  <main>
+    <section class="add-task-form">
+      <label for="add-task-label">Adicione uma tarefa:</label>
+      <input id="add-tast-bar" name="add-bar" type="text" placeholder="Adicione uma tarefa" class="input">
+
+      <button class="add-button">+</button>
+    </section>
+
+    <section class="task-list">
+      <fieldset class="task-field">
+        <div class="task-item">
+          <label for="task-check-button">
+            <input type="radio" name="task" value="done" id="task-check-button"> Pagar o agiota
+          </label>
+
+          <button class="task-button" id="edit-button">
+            <img src="img/pencil.png" alt="Botão para editar tarefa" class="edit-image">
+          </button>
+          
+          <button class="task-button" id="delete-button">
+            <img src="img/trash.png" alt="Botão para remover tarefa" class="delete-image">
+          </button>
+        </div>
+      </fieldset>
+    </section>
+  </main>
+
+  <footer>
+    
+  </footer>
 </body>
 
 </html>
