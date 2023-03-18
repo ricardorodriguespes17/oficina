@@ -1,11 +1,167 @@
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  font-family: Arial, Helvetica, sans-serif;
+@import './global.css';
+
+/* Header */
+
+header {
+  height: 109px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 38px;
+
+  background-color: var(--primary-color);
+  color: var(--color);
 }
 
-html,body {
-  width: 100vw;
-  height: 100vh;
+header .header-title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 60px;
+}
+
+header .header-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+header .header-buttons a {
+  width: fit-content;
+
+  padding: 11px 20px;
+
+  background-color: var(--primary-color-light);
+  color: var(--color);
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: 20px;
+}
+
+/* Main */
+
+main {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  padding: 27px 41px 100px 41px;
+}
+
+main .add-task-form {
+  height: 66px;
+  width: 100%;
+  
+  display: flex;
+  gap: 13px;
+}
+
+main .add-task-form input {
+  flex: 1;
+
+  background-color: var(--card-background);
+
+  border-radius: 50px;
+  padding-left: 35px;
+  font-size: 20px;
+}
+
+main .add-task-form .add-button {
+  height: 100%;
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--color);
+  font-size: 45px;
+}
+
+main .add-task-form .add-button .add-task {
+  width: 45px;
+  aspect-ratio: 1;
+}
+
+main #task-list {
+  flex: 1;
+
+  overflow: auto;
+
+  margin-top: 46px;
+}
+
+main .task-field {
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: var(--card-background);
+
+  border-radius: 20px;
+  padding: 0 16px 0 12px;
+  margin-bottom: 20px;
+}
+
+main .task-field .task-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  font-size: 20px;
+  line-height: 30px;
+}
+
+main .task-field .task-item .check-button {
+  width: 35px;
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  font-size: 24px;
+  color: transparent;
+}
+
+main .task-field .task-item .check-button:hover {
+  color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+main .task-field.checked .task-item .check-button {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+main .task-field.checked .task-item label {
+  text-decoration: line-through;
+}
+
+main .task-field .task-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+main .task-field .task-buttons #edit-button:hover {
+  color: var(--primary-color);
+}
+
+main .task-field .task-buttons #delete-button:hover {
+  color: var(--danger);
 }
