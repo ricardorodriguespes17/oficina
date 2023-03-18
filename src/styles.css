@@ -1,4 +1,4 @@
-@import './global.css';
+@import "./global.css";
 
 /* Header */
 
@@ -29,11 +29,25 @@ header .header-buttons {
 }
 
 header .header-buttons a {
-  width: fit-content;
-
   padding: 11px 20px;
 
   background-color: var(--primary-color-light);
+  color: var(--color);
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: 20px;
+}
+
+header .header-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
   color: var(--color);
   text-decoration: none;
 
@@ -57,7 +71,7 @@ main {
 main .add-task-form {
   height: 66px;
   width: 100%;
-  
+
   display: flex;
   gap: 13px;
 }
@@ -130,7 +144,7 @@ main .task-field .task-item .check-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   border-radius: 50%;
   border: 1px solid var(--border-color);
   font-size: 24px;
