@@ -6,9 +6,38 @@ const checkButtons = document.querySelectorAll(
   "#task-list button.check-button"
 );
 
-const history = localStorage.getItem('tasks');
+const history = localStorage.getItem("tasks");
 
 let oldInputValue;
+
+const updateLocalStorageTitle = (taskField, newValue) => {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const taskId = taskField.getAttribute("data-task-id");
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+  if (taskIndex > -1) {
+    tasks[taskIndex].title = newValue;
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+};
+
+const removeFromLocalStorage = (taskField) => {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const taskId = taskField.getAttribute("data-task-id");
+  tasks = tasks.filter((task) => task.id !== taskId);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
+const updateLocalStorageDone = (taskField) => {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const taskId = taskField.getAttribute("data-task-id");
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+  if (taskIndex > -1) {
+    tasks[taskIndex].done = taskField.classList.contains("checked") ? 1 : 0;
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+};
 
 const createCheckButton = () => {
   const checkButton = document.createElement("button");
@@ -37,8 +66,8 @@ const createEditButton = () => {
 };
 
 const editButtonListener = (button) => {
-  const taskField = button.closest(".task-field"); // Adicionado
-  const input = taskField.querySelector("input"); // Adicionado
+  const taskField = button.closest(".task-field");
+  const input = taskField.querySelector("input");
 
   input.removeAttribute("disabled");
 
@@ -55,7 +84,7 @@ const editButtonListener = (button) => {
     button.innerHTML = '<i class="feather" data-feather="edit-2"></i>';
     button.setAttribute("id", "edit-button");
 
-    input.value = newValue;
+    updateLocalStorageTitle(taskField, newValue);
     feather.replace();
   });
 };
@@ -67,34 +96,30 @@ const createDeleteButton = () => {
   deleteButton.setAttribute("title", "Excluir");
   deleteButton.innerHTML = '<i class="feather" data-feather="trash-2"></i>';
 
-  deleteButton.addEventListener("click", () => deleteButtonListener(deleteButton));
+  deleteButton.addEventListener("click", () =>
+    deleteButtonListener(deleteButton)
+  );
 
   return deleteButton;
 };
 
-// checkButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     const taskField = button.closest(".task-field");
-//     taskField.classList.toggle("checked");
-//     inputItem.setAttribute("disabled", "");
-//     const input = taskField.querySelector("input");
-//     input.disabled = input.disabled;
-//   });
-// });
-
 const addCheckButtonEventListener = (button) => {
   button.addEventListener("click", () => {
     const taskField = button.closest(".task-field");
+    const inputItem = document.createElement("input");
     taskField.classList.toggle("checked");
     inputItem.setAttribute("disabled", "");
     const input = taskField.querySelector("input");
     input.disabled = input.disabled;
+
+    updateLocalStorageDone(taskField);
   });
 };
 
 const deleteButtonListener = (button) => {
   const taskField = button.parentNode.parentNode;
   if (taskField !== null) {
+    removeFromLocalStorage(taskField);
     taskField.remove();
   }
 };
@@ -102,6 +127,12 @@ const deleteButtonListener = (button) => {
 const saveTodo = () => {
   if (todoInput.value.trim() === "") {
     return;
+  }
+
+  const taskObject = {
+    id: generateUUID(),
+    title: todoInput.value,
+    done: 0
   }
 
   const todo = document.createElement("fieldset");
@@ -113,7 +144,7 @@ const saveTodo = () => {
   const newCheckButton = createCheckButton();
   taskItem.appendChild(newCheckButton);
   addCheckButtonEventListener(newCheckButton);
-  const inputItem = createInputItem(todoInput.value);
+  const inputItem = createInputItem(taskObject.title);
   inputItem.setAttribute("disabled", true);
   taskItem.appendChild(inputItem);
 
@@ -128,22 +159,17 @@ const saveTodo = () => {
   deleteButtonListener(newDeleteButton);
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.push(todoInput.value);
+  tasks.push(taskObject);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
   todo.appendChild(taskItem);
   todo.appendChild(taskButtonDiv);
 
+  todo.setAttribute("data-task-id", taskObject.id); // Add this line
+
   todoList.appendChild(todo);
   todoInput.value = "";
   feather.replace();
-};
-
-const updateLocalStorage = (oldValue, newValue) => {
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  const taskIndex = tasks.findIndex((task) => task === oldValue);
-  tasks[taskIndex] = newValue;
-  localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 function changeTheme() {
@@ -156,58 +182,62 @@ function changeTheme() {
   }
 }
 
-// editButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     // encontra o campo de entrada relacionado ao botão clicado
-//     const input = button.parentNode.parentNode.querySelector("input");
+if (history !== null && Object.values(history).length > 0) {
+  const tasks = JSON.parse(history);
 
-//     // permite que o usuário edite o campo de entrada
-//     input.removeAttribute("disabled");
+  tasks.forEach((task) => {
+    const todo = document.createElement("fieldset");
+    todo.setAttribute("data-task-id", task.id);
+    todo.classList.add("task-field");
 
-//     // altera o botão de editar para o botão de salvar
-//     button.innerHTML = '<i class="feather" data-feather="save"></i>';
-//     button.setAttribute("id", "save-button");
-//     feather.replace();
+    if (task.done === 1) {
+      todo.classList.toggle("checked");
+    }
 
-//     // adiciona um ouvinte de evento de clique ao botão de salvar
-//     button.addEventListener("click", () => {
-//       // salva o novo valor do campo de entrada
-//       const newValue = input.value;
+    const taskItem = document.createElement("div");
+    taskItem.classList.add("task-item");
 
-//       // desativa a edição do campo de entrada
-//       input.setAttribute("disabled", true);
-//       input.classList.remove("editable");
+    const newCheckButton = createCheckButton();
+    taskItem.appendChild(newCheckButton);
+    addCheckButtonEventListener(newCheckButton);
 
-//       // altera o botão de salvar para o botão de editar
-//       button.innerHTML = '<i class="feather" data-feather="edit-2"></i>';
-//       button.setAttribute("id", "edit-button");
+    const inputItem = createInputItem(task.title);
+    inputItem.setAttribute("disabled", true);
+    taskItem.appendChild(inputItem);
 
-//       // atualiza o valor do campo de entrada com o novo valor
-//       input.value = newValue;
-//       feather.replace();
-//     });
-//   });
-// });
+    const taskButtonDiv = document.createElement("div");
+    taskButtonDiv.classList.add("task-buttons");
 
-// deleteButtons.forEach((button) => {
-//   button.addEventListener("click", (event) => {
-//     // Obtém o elemento pai do botão (fieldset.task-field)
-//     const taskField = button.parentNode.parentNode;
-//     // Remove o elemento da tarefa (fieldset.task-field) do DOM
-//     taskField.remove();
-//   });
-// });
+    const newEditButton = createEditButton();
+    taskButtonDiv.appendChild(newEditButton);
 
-// checkButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     const taskField = button.closest(".task-field");
-//     taskField.classList.toggle("checked");
-//     inputItem.setAttribute("disabled", "");
-//     const input = taskField.querySelector("input");
-//     input.disabled = input.disabled;
-//   });
-// });
+    const newDeleteButton = createDeleteButton();
+    taskButtonDiv.appendChild(newDeleteButton);
+    deleteButtonListener(newDeleteButton);
 
-// checkButtons.forEach((button) => {
-//   addCheckButtonEventListener(button);
-// });
+    todo.appendChild(taskItem);
+    todo.appendChild(taskButtonDiv);
+
+    todoList.appendChild(todo);
+    feather.replace();
+  });
+}
+
+function generateUUID() {
+  let d = new Date().getTime();
+  if (
+    typeof performance !== "undefined" &&
+    typeof performance.now === "function"
+  ) {
+    d += performance.now(); // use high-precision timer if available
+  }
+  let uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+    /[xy]/g,
+    function (c) {
+      let r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+    }
+  );
+  return uuid;
+}
