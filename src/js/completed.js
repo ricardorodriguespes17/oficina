@@ -1,36 +1,19 @@
 const todoInput = document.querySelector("#add-tast-bar");
 const todoList = document.querySelector("#task-list");
-const editButtons = document.querySelectorAll("#edit-button");
 const deleteButtons = document.querySelectorAll("#delete-button");
 const checkButtons = document.querySelectorAll(
   "#task-list button.check-button"
 );
 
 const history = localStorage.getItem("tasks");
+const filteredHistory = JSON.parse(history).filter((task) => task.done === 1);
 
 let oldInputValue;
 
-const updateLocalStorageTitle = (taskField, newValue) => {
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  const taskId = taskField.getAttribute("data-task-id");
-  const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
-  if (taskIndex > -1) {
-    tasks[taskIndex].title = newValue;
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-};
-
 const removeFromLocalStorage = (taskField) => {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  const tasksDeleted = JSON.parse(localStorage.getItem("deletedTasks")) || [];
-  let deletedTasks = tasks;
   const taskId = taskField.getAttribute("data-task-id");
   tasks = tasks.filter((task) => task.id !== taskId);
-  deletedTasks = deletedTasks.filter((task) => task.id === taskId);
-  tasksDeleted.push(deletedTasks[0]);
-  console.log(deletedTasks);
-  localStorage.setItem("deletedTasks", JSON.stringify(tasksDeleted));
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
@@ -59,42 +42,6 @@ const createInputItem = (value) => {
   return inputItem;
 };
 
-const createEditButton = () => {
-  const editButton = document.createElement("button");
-  editButton.classList.add("task-button");
-  editButton.setAttribute("id", "edit-button");
-  editButton.setAttribute("title", "Editar");
-  editButton.innerHTML = '<i class="feather" data-feather="edit-2"></i>';
-
-  editButton.addEventListener("click", () => editButtonListener(editButton));
-
-  return editButton;
-};
-
-const editButtonListener = (button) => {
-  const taskField = button.closest(".task-field");
-  const input = taskField.querySelector("input");
-
-  input.removeAttribute("disabled");
-
-  button.innerHTML = '<i class="feather" data-feather="save"></i>';
-  button.setAttribute("id", "save-button");
-  feather.replace();
-
-  button.addEventListener("click", () => {
-    const newValue = input.value;
-
-    input.setAttribute("disabled", true);
-    input.classList.remove("editable");
-
-    button.innerHTML = '<i class="feather" data-feather="edit-2"></i>';
-    button.setAttribute("id", "edit-button");
-
-    updateLocalStorageTitle(taskField, newValue);
-    feather.replace();
-  });
-};
-
 const createDeleteButton = () => {
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("task-button");
@@ -117,7 +64,7 @@ const addCheckButtonEventListener = (button) => {
     inputItem.setAttribute("disabled", "");
     const input = taskField.querySelector("input");
     input.disabled = input.disabled;
-
+    window.location.reload();
     updateLocalStorageDone(taskField);
   });
 };
@@ -127,6 +74,7 @@ const deleteButtonListener = (button) => {
   if (taskField !== null) {
     removeFromLocalStorage(taskField);
     taskField.remove();
+    window.location.reload();
   }
 };
 
@@ -157,8 +105,6 @@ const saveTodo = () => {
   const taskButtonDiv = document.createElement("div");
   taskButtonDiv.classList.add("task-buttons");
 
-  const newEditButton = createEditButton();
-  taskButtonDiv.appendChild(newEditButton);
 
   const newDeleteButton = createDeleteButton();
   taskButtonDiv.appendChild(newDeleteButton);
@@ -194,7 +140,7 @@ function changeTheme() {
 }
 
 if (history !== null && Object.values(history).length > 0) {
-  const tasks = JSON.parse(history);
+  const tasks = filteredHistory;
 
   tasks.forEach((task) => {
     const todo = document.createElement("fieldset");
@@ -218,9 +164,6 @@ if (history !== null && Object.values(history).length > 0) {
 
     const taskButtonDiv = document.createElement("div");
     taskButtonDiv.classList.add("task-buttons");
-
-    const newEditButton = createEditButton();
-    taskButtonDiv.appendChild(newEditButton);
 
     const newDeleteButton = createDeleteButton();
     taskButtonDiv.appendChild(newDeleteButton);
