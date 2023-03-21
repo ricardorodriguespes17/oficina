@@ -6,6 +6,7 @@
   <title>Todo List</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+  <script src="./js/script.js" defer></script>
 </head>
 
 <body class="">
@@ -20,7 +21,7 @@
         <i class="feather" data-feather="check-circle"></i>
         <label>Concluídas</label>
       </a>
-      <button title="Alternar tema">
+      <button title="Alternar tema" onclick="changeTheme()">
         <i class="feather" data-feather="sun"></i>
         <!-- <i class="feather" data-feather="moon"></i> -->
       </button>
@@ -30,70 +31,12 @@
   <main>
     <section class="add-task-form">
       <input id="add-tast-bar" name="add-bar" type="text" placeholder="Adicione uma tarefa" class="input">
-
-      <button class="add-button" title="Adicionar tarefa">
+      <button class="add-button" onclick="saveTodo()" title="Adicionar tarefa">
         <i class="feather" data-feather="plus"></i>
       </button>
     </section>
 
-    <section id="task-list">
-      <fieldset class="task-field">
-        <div class="task-item">
-          <button class="check-button" title="Marcar como concluída">
-            <i class="feather" data-feather="check"></i>
-          </button>
-          <input value="Seguir a Atlética nas redes sociais" disabled />
-        </div>
-
-        <div class="task-buttons">
-          <button class="task-button" id="edit-button" title="Editar">
-            <i class="feather" data-feather="edit-2"></i>
-          </button>
-
-          <button class="task-button" id="delete-button" title="Excluir">
-            <i class="feather" data-feather="trash-2"></i>
-          </button>
-        </div>
-      </fieldset>
-
-      <fieldset class="task-field checked">
-        <div class="task-item">
-          <button class="check-button" title="Marcar como não concluída">
-            <i class="feather" data-feather="check"></i>
-          </button>
-          <input value="Participar da semana da integração" />
-        </div>
-
-        <div class="task-buttons">
-          <button class="task-button" id="edit-button" title="Salvar">
-            <i class="feather" data-feather="save"></i>
-          </button>
-
-          <button class="task-button" id="delete-button" title="Excluir">
-            <i class="feather" data-feather="trash-2"></i>
-          </button>
-        </div>
-      </fieldset>
-
-      <fieldset class="task-field checked">
-        <div class="task-item">
-          <button class="check-button" title="Marcar como não concluída">
-            <i class="feather" data-feather="check"></i>
-          </button>
-          <input value="Conhecer a UESB" disabled />
-        </div>
-
-        <div class="task-buttons">
-          <button class="task-button" id="edit-button" title="Editar">
-            <i class="feather" data-feather="edit-2"></i>
-          </button>
-
-          <button class="task-button" id="delete-button" title="Excluir">
-            <i class="feather" data-feather="trash-2"></i>
-          </button>
-        </div>
-      </fieldset>
-    </section>
+    <section id="task-list"></section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
