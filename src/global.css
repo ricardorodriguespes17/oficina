@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html,body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  color: var(--color);
+}
+
+button {
+  background-color: transparent;
+  color: inherit;
+}
+
+input {
+  color: inherit;
+}
+
+button:hover , a:hover, button *:hover , a *:hover {
+  opacity: 0.85;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+i {
+  color: inherit;
+}
+
+/* Temas */
+
+body {
+  --primary-color: #AF3FE4;
+  --primary-color-light: #CC8BEA;
+  --color: #000;
+  --background: #fff;
+  --card-background: #eee;
+  --danger: #d00;
+  --icon-color: #9E9E9E;
+  --border-color: #C9C9C9;
+}
+
+.dark {
+  --primary-color: #520974;
+  --primary-color-light: #782e9b;
+  --color: #fff;
+  --background: #000;
+  --card-background: #111;
+  --danger: #d00;
+  --icon-color: #9E9E9E;
+  --border-color: #C9C9C9;
+}

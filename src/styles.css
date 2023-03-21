@@ -1,11 +1,251 @@
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  font-family: Arial, Helvetica, sans-serif;
+@import "./global.css";
+
+/* Header */
+
+header {
+  height: 110px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 38px;
+
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
-html,body {
-  width: 100vw;
-  height: 100vh;
+header .header-title {
+  font-weight: 700;
+  font-size: 2.5rem; /* 40px */
+  line-height: 3.75rem; /*60px */
+}
+
+header .header-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+header .header-buttons a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+
+  background-color: var(--primary-color-light);
+  color: inherit;
+  text-decoration: none;
+
+  font-size: 1rem; /* 16px */
+  font-weight: 700;
+  line-height: 1.5rem;
+  border-radius: 20px;
+}
+
+header .header-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
+  text-decoration: none;
+
+  font-size: 1rem; /* 16px */
+  font-weight: 700;
+  line-height: 1.5rem; /* 24px */
+  border-radius: 20px;
+}
+
+/* Main */
+
+main {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 2.5rem 6.25rem 2.5rem;
+}
+
+main .add-task-form {
+  height: 66px;
+  width: 100%;
+
+  display: flex;
+  gap: 13px;
+}
+
+main .add-task-form input {
+  flex: 1;
+  min-width: 0;
+
+  background-color: var(--card-background);
+  text-overflow: ellipsis;
+
+  border-radius: 50px;
+  padding: 0 2rem;
+  font-size: 1.25rem; /* 20px */
+}
+
+main .add-task-form .add-button {
+  height: 100%;
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+main .add-task-form .add-button .feather {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  font-size: 2.5rem;
+}
+
+main #task-list {
+  flex: 1;
+
+  overflow: auto;
+
+  margin-top: 46px;
+}
+
+main .task-field {
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  background-color: var(--card-background);
+
+  border-radius: 20px;
+  padding: 0 16px 0 12px;
+  margin-bottom: 20px;
+}
+
+main .task-field .task-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+}
+
+main .task-field .task-item .check-button {
+  min-width: 35px;
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  color: transparent;
+}
+
+main .task-field .task-item .check-button:hover {
+  color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+main .task-field.checked .task-item .check-button {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+main .task-field .task-item .check-button .feather {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+main .task-field .task-item input {
+  height: 100%;
+  width: 100%;
+
+  background-color: transparent;
+  color: var(--color);
+  border-bottom: 1px solid var(--color);
+  outline: none;
+
+  text-overflow: ellipsis;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+}
+
+main .task-field .task-item input:disabled {
+  border: 0;
+}
+
+main .task-field.checked .task-item input:is(:disabled) {
+  text-decoration: line-through;
+}
+
+main .task-field .task-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+main .task-field .task-buttons .task-button .feather {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+main .task-field .task-buttons #edit-button:hover {
+  color: var(--primary-color);
+}
+
+main .task-field .task-buttons #delete-button:hover {
+  color: var(--danger);
+}
+
+/* Media query */
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 87.5%;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+    height: 150px;
+  }
+
+  header .header-buttons a {
+    background-color: transparent;
+  }
+
+  header .header-buttons a label {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 81.25%;
+  }
 }
