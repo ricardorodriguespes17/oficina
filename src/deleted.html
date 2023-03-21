@@ -8,13 +8,19 @@
   <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
 </head>
 
-<body class="dark">
+<body class="">
   <header>
     <h2 class="header-title">ToDo</h2>
     <div class="header-buttons">
-      <a href="./index.html">Todas</a>
-      <a href="./completed.html">Concluídas</a>
-      <button>
+      <a href="./index.html" title="Mostrar todas tarefas">
+        <i class="feather" data-feather="list"></i>
+        <label>Todas</label>
+      </a>
+      <a href="./completed.html" title="Mostrar tarefas concluídas">
+        <i class="feather" data-feather="check-circle"></i>
+        <label>Concluídas</label>
+      </a>
+      <button title="Alternar tema">
         <i class="feather" data-feather="sun"></i>
         <!-- <i class="feather" data-feather="moon"></i> -->
       </button>

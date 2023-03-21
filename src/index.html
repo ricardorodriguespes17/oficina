@@ -8,13 +8,19 @@
   <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
 </head>
 
-<body class="dark">
+<body class="">
   <header>
     <h2 class="header-title">ToDo</h2>
     <div class="header-buttons">
-      <a href="./deleted.html">Excluídas</a>
-      <a href="./completed.html">Concluídas</a>
-      <button>
+      <a href="./deleted.html" title="Mostrar tarefas excluídas">
+        <i class="feather" data-feather="trash-2"></i>
+        <label>Excluídas</label>
+      </a>
+      <a href="./completed.html" title="Mostrar tarefas concluídas">
+        <i class="feather" data-feather="check-circle"></i>
+        <label>Concluídas</label>
+      </a>
+      <button title="Alternar tema">
         <i class="feather" data-feather="sun"></i>
         <!-- <i class="feather" data-feather="moon"></i> -->
       </button>
@@ -25,7 +31,7 @@
     <section class="add-task-form">
       <input id="add-tast-bar" name="add-bar" type="text" placeholder="Adicione uma tarefa" class="input">
 
-      <button class="add-button">
+      <button class="add-button" title="Adicionar tarefa">
         <i class="feather" data-feather="plus"></i>
       </button>
     </section>
@@ -33,7 +39,7 @@
     <section id="task-list">
       <fieldset class="task-field">
         <div class="task-item">
-          <button class="check-button">
+          <button class="check-button" title="Marcar como concluída">
             <i class="feather" data-feather="check"></i>
           </button>
           <label>Seguir a Atlética nas redes sociais</label>
@@ -52,7 +58,7 @@
 
       <fieldset class="task-field checked">
         <div class="task-item">
-          <button class="check-button">
+          <button class="check-button" title="Marcar como não concluída">
             <i class="feather" data-feather="check"></i>
           </button>
           <label>Participar da semana da integração</label>
@@ -71,7 +77,7 @@
 
       <fieldset class="task-field checked">
         <div class="task-item">
-          <button class="check-button">
+          <button class="check-button" title="Marcar como não concluída">
             <i class="feather" data-feather="check"></i>
           </button>
           <label>Conhecer a UESB</label>
