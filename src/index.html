@@ -29,12 +29,12 @@
   </header>
 
   <main>
-    <section class="add-task-form">
+    <form onsubmit="saveTodo(event)" class="add-task-form">
       <input id="add-tast-bar" name="add-bar" type="text" placeholder="Adicione uma tarefa" class="input">
-      <button class="add-button" onclick="saveTodo()" title="Adicionar tarefa">
+      <button class="add-button" type="submit" title="Adicionar tarefa">
         <i class="feather" data-feather="plus"></i>
       </button>
-    </section>
+    </form>
 
     <section id="task-list"></section>
   </main>

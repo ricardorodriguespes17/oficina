@@ -29,7 +29,6 @@ const removeFromLocalStorage = (taskField) => {
   tasks = tasks.filter((task) => task.id !== taskId);
   deletedTasks = deletedTasks.filter((task) => task.id === taskId);
   tasksDeleted.push(deletedTasks[0]);
-  console.log(deletedTasks);
   localStorage.setItem("deletedTasks", JSON.stringify(tasksDeleted));
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
@@ -130,7 +129,9 @@ const deleteButtonListener = (button) => {
   }
 };
 
-const saveTodo = () => {
+const saveTodo = (event) => {
+  event.preventDefault();
+
   if (todoInput.value.trim() === "") {
     return;
   }
