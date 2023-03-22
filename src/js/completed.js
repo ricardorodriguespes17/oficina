@@ -5,8 +5,14 @@ const filteredHistory = JSON.parse(history).filter((task) => task.done === 1);
 
 const removeFromLocalStorage = (taskField) => {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const tasksDeleted = JSON.parse(localStorage.getItem("deletedTasks")) || [];
+  let deletedTasks = tasks;
   const taskId = taskField.getAttribute("data-task-id");
   tasks = tasks.filter((task) => task.id !== taskId);
+  deletedTasks = deletedTasks.filter((task) => task.id === taskId);
+  tasksDeleted.push(deletedTasks[0]);
+  console.log(deletedTasks);
+  localStorage.setItem("deletedTasks", JSON.stringify(tasksDeleted));
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
