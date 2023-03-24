@@ -4,6 +4,7 @@
 
 header {
   min-height: 110px;
+  height: max-content;
   width: 100%;
 
   display: flex;
@@ -232,7 +233,7 @@ main .task-field .task-buttons #delete-button:hover {
     flex-direction: column;
     gap: 20px;
     padding: 20px 0;
-    height: 150px;
+    min-height: 150px;
   }
 
   header .header-buttons a {
