@@ -68,7 +68,7 @@ main {
 
   display: flex;
   flex-direction: column;
-  padding: 1.75rem 2.5rem 6.25rem 2.5rem;
+  padding: 1.75rem 2.5rem 9rem 2.5rem;
 }
 
 main .add-task-form {
