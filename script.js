@@ -1,7 +1,7 @@
 let tasks = [];
 let themeDark = false;
 
-const page = document.URL;
+const page = document.URL.replace(document.location.origin, "");
 const body = document.getElementsByTagName('body')[0];
 const buttonChangeTheme = document.getElementById('button-change-theme');
 
@@ -146,7 +146,7 @@ function render() {
     let deleted = task.deleted;
 
     if (
-      (page.includes("index") && deleted) ||
+      ((page.includes("index") || page === "/") && deleted) ||
       (!deleted && page.includes("deleted")) ||
       (!completed && page.includes("completed"))
     )
