@@ -1,7 +1,7 @@
 let tasks = [];
 let themeDark = false;
 
-const page = document.URL.replace(document.location.origin, "");
+const page = document.URL.replace(document.location.origin,"");
 const body = document.getElementsByTagName('body')[0];
 const buttonChangeTheme = document.getElementById('button-change-theme');
 
@@ -70,7 +70,7 @@ function deleteTask(id) {
 
 function checkTask(id) {
   tasks = tasks.map(task => {
-    if (task.id === id) 
+    if (task.id === id)
       return {
         ...task,
         completed: !task.completed,
@@ -96,7 +96,7 @@ function editTask(id) {
 
 function recoveTask(id) {
   tasks = tasks.map(task => {
-    if (task.id === id) 
+    if (task.id === id)
       return {
         ...task,
         deleted: false,
@@ -146,7 +146,7 @@ function render() {
     let deleted = task.deleted;
 
     if (
-      ((page.includes("index") || page === "/") && deleted) ||
+      (!page.includes("deleted") && !page.includes("completed") && deleted) ||
       (!deleted && page.includes("deleted")) ||
       (!completed && page.includes("completed"))
     )
