@@ -110,6 +110,14 @@ main .add-task-form .add-button .feather {
   font-size: 2.5rem;
 }
 
+main .without-task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-size: 30px;
+}
+
 main #task-list {
   flex: 1;
 

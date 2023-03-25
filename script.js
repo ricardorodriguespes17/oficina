@@ -138,6 +138,7 @@ function render() {
   }
 
   const taskList = document.getElementById('task-list');
+
   taskList.innerHTML = "";
 
   for (let task of tasks) {
@@ -185,6 +186,9 @@ function render() {
         </div>
       </fieldset>`;
   }
+
+  if (taskList.innerHTML === "")
+    taskList.innerHTML = "<div class='without-task'>Nenhuma tarefa</div>";
 
   updateLocalStorage();
   feather.replace();
